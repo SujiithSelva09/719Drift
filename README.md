@@ -1,133 +1,104 @@
-# 719D PROS Robotics Code
+# 719D Robotics – Pushback 2025-2026
 
-This repository contains the official **VEX V5 PROS** code for Team **719D**.  
-It is designed for the **Pushback** competition game and includes full drivetrain, intake, and IMU-based autonomous control.
-
----
-
-## Project Overview
-
-**Environment:** PROS 4.x  
-**Language:** C++  
-**Platform:** VEX V5 Brain and Controller
-
-### Key Features
-- 6-motor tank drivetrain with correct gearing and reversal  
-- Integrated IMU-based turning (`turn_imu.cpp`)  
-- Calibrated IMU at startup for reliable autonomous turns  
-- Driver control with arcade steering and intake mapping  
-- Safe motor configuration (no deprecated constructors)  
-- Ready for official VRC competition template (`initialize`, `autonomous`, `opcontrol`, etc.)
+Official VEX V5 codebase for **Team 719D** competing in the **VEX Robotics Competition: Pushback (2025-2026 season)**.  
+This repository contains all robot control logic, autonomous routines, and driver programs built using **PROS** in **C++**.
 
 ---
 
-## File Structure
+## Overview
+
+The 719D robot features a **6-motor tank drivetrain**, dual-roller intake, and an **IMU-assisted autonomous system** for precise movement and orientation.  
+This repository is organized and configured for direct competition use, following the standard VRC structure (`initialize`, `autonomous`, `opcontrol`).
+
+---
+
+## Core Systems
+
+### Drivetrain
+- 6-motor tank configuration (3 left, 3 right)
+- Tuned for accurate straight-line motion and smooth turns
+- Supports IMU-based correction and autonomous turning
+
+### Intake System
+- 3-motor design: top, middle, and back rollers  
+- Optimized for stacking and rapid scoring
+- Controlled with L1/L2 and R1/R2 buttons during driver mode
+
+### IMU Control
+- Inertial Measurement Unit on Smart Port 10  
+- Used for angle tracking and closed-loop turning during autonomous
+- Calibrated automatically during initialization
+
+---
+
+## Code Layout
 
 ```
 src/
 │
-├── main.cpp                  # competition functions: init, auton, etc.
+├── main.cpp                  # competition functions (init, auton, etc.)
 ├── opcontrol.cpp             # driver control logic
-├── turn_imu.cpp              # IMU-based turning helpers (no include in main)
+├── turn_imu.cpp              # IMU-based turning helpers
 │
-├── autonomous.cpp            # empty placeholder
-├── initialize.cpp            # empty placeholder
-├── competition_initialize.cpp # empty placeholder
-├── disabled.cpp              # empty placeholder
-└── on_center_button.cpp      # empty placeholder
+├── autonomous.cpp            # placeholder
+├── initialize.cpp            # placeholder
+├── competition_initialize.cpp # placeholder
+├── disabled.cpp              # placeholder
+└── on_center_button.cpp      # placeholder
 ```
 
-> Only `main.cpp`, `opcontrol.cpp`, and `turn_imu.cpp` contain logic.  
-> The other files exist so PROS compiles cleanly with no duplicate definitions.
+Only `main.cpp`, `opcontrol.cpp`, and `turn_imu.cpp` contain control logic.  
+The other files exist to maintain a compliant PROS structure.
 
 ---
 
-## Port Map
+## Autonomous Logic
 
-| Device | Description | Port | Notes |
-|---------|--------------|------|-------|
-| **Drive Left Front** | Motor | 1 | Blue cartridge |
-| **Drive Left Mid** | Motor | 2 | Blue cartridge |
-| **Drive Left Back** | Motor | 3 | Blue cartridge |
-| **Drive Right Front** | Motor | 4 | Blue cartridge, reversed |
-| **Drive Right Mid** | Motor | 5 | Blue cartridge, reversed |
-| **Drive Right Back** | Motor | 6 | Blue cartridge, reversed |
-| **Front Bottom Intake** | Motor | 7 | Regular |
-| **Back Intake** | Motor | 8 | Reversed |
-| **Front Top Intake** | Motor | 9 | Regular |
-| **IMU** | Sensor | 10 | Used for autonomous turning |
+### Default Sequence
+1. Drive forward for 0.8 seconds  
+2. Execute a 90-degree IMU-assisted turn  
+3. Drive backward for 0.5 seconds  
 
-> Update these port numbers in `main.cpp` if your wiring differs.
+These parameters are adjustable in `autonomous()` inside `main.cpp`.
 
 ---
 
-## Autonomous Routine
-
-**Default sequence:**
-1. Drive forward for ~0.8 seconds  
-2. Turn right 90° using the IMU  
-3. Drive backward for ~0.5 seconds  
-
-You can modify the time or direction in `autonomous()` inside `main.cpp`.
-
----
-
-## Driver Control Mapping
+## Driver Control
 
 | Control | Function |
 |----------|-----------|
-| Left joystick Y | Drive forward/back |
-| Right joystick X | Turning |
+| Left joystick (Y) | Forward and backward |
+| Right joystick (X) | Turning |
 | L1 | Intake in |
 | L2 | Outtake |
-| R1 | Basket to middle |
+| R1 | Basket to mid |
 | R2 | Basket to top |
 
-Drive includes a small **slew rate** limit for smoother acceleration.
+---
+
+## Technical Notes
+
+- Built using **PROS 4.x** with **C++17**
+- Designed for **VEX V5 Brain**
+- IMU calibration and motor configuration handled in `initialize()`
+- Standard brake modes and gearing set for blue cartridges (600 RPM)
 
 ---
 
-## Build and Upload
+## Team Information
 
-Run these commands in VS Code terminal:
+**Team:** 719D – Bentonville West High School  
+**Season:** VEX V5 Pushback (2025-2026)  
+**Language:** C++ with PROS  
+**Robot Type:** Competition Standard – Tank Drivetrain, IMU, Intake Mechanism
 
-```bash
-pros make clean
-pros build
-pros upload --slot 1
-```
-
-If PROS cannot find your brain:
-- Ensure the V5 brain is powered on.  
-- Close other VEX utilities.  
-- Try another USB port.  
-- Re-run with:  
-  ```bash
-  pros upload --port /dev/cu.usbmodemXXXX
-  ```
+**Primary Contributors**
+- Rakshith Jayakarthikeyan – Lead Programmer  
+- Vishnu, Havish, Aarman, Shashank, Abdullah, Jackson – Build & Testing Team  
 
 ---
 
-## Troubleshooting
+## Repository Purpose
 
-| Issue | Likely Cause | Fix |
-|--------|---------------|-----|
-| Motors not moving | Wrong ports or wiring | Check brain port map |
-| Robot drives backward | Flip `set_reversed` values in `configure_motors()` |
-| IMU turn inaccurate | Wait for IMU calibration to finish in `initialize()` |
-| “Constructor doesn’t match” error | Use simple `pros::Motor(port)` constructors |
-| Duplicate definitions | Delete or empty extra `.cpp` files in `src/` |
-
----
-
-## Contributors
-
-- **Rakshith Jayakarthikeyan** — Lead programmer  
-- **Vishnu**, **Havish**, **Aarman**, **Shashank**, **Abdullah**, **Jackson** — Robotics build and testing team
-
----
-
-## License
-
-This codebase is for educational and competition use within **Bentonville West High School Robotics Team 719D**.  
-Free to reuse with credit.
+This repository serves as a public reference for judges, collaborators, and technical reviewers.  
+It demonstrates clean organization, consistent structure, and reliable competition-level code suitable for inspection and replication by other teams.
