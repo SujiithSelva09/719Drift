@@ -93,8 +93,18 @@ These parameters are adjustable in `autonomous()` inside `main.cpp`.
 **Robot Type:** Competition Standard – Tank Drivetrain, IMU, Intake Mechanism
 
 **Primary Contributors**
-- Rakshith Jayakarthikeyan – Lead Programmer  
-- Vishnu, Havish, Aarman, Shashank, Abdullah, Jackson – Build & Testing Team  
+- Rakshith Jayakarthikeyan – Lead Programmer
+- Eshwar Atmakuri - Assistant Programmer
+- Vishwaksen Paramkusham - Float Programmer
+- Team Members:
+-   Eshwar Atmakuri
+-   Harshita Chauhan
+-   Prasenjit Panigrahi
+-   Rakshith Jayakarthikeyan
+-   Srivykunth Rubesh
+-   Sujiith Selvakumar
+-   Vishwaksen Paramkusham
+-   Yeshwanth Mathavan
 
 ---
 
