@@ -22,22 +22,21 @@
 // Tunables
 static constexpr int DRIVE_POWER = 100;     // 0..127
 static constexpr int DRIVE_TIME_MS = 1200;  // how long to drive
-static constexpr int INTAKE_BTM = 127;      // intake in
-static constexpr int INTAKE_TOP = 127;
+static constexpr int INTAKE_BTM = -100;
+static constexpr int INTAKE_TOP = 0;
 static constexpr int INTAKE_REAR = -127;
+
 
 // Drive helper that matches opcontrol MotorGroup signs
 static void drive_move_forward(int power) {
-  // left:  {1, -2, -3}
-  LF.move( power);
-  LM.move(-power);
-  LB.move(-power);
-
-  // right: {-4, 5, 6}
-  RF.move(-power);
-  RM.move( power);
-  RB.move( power);
+  LF.move(power);
+  LM.move(power);
+  LB.move(power);
+  RF.move(power);
+  RM.move(power);
+  RB.move(power);
 }
+
 
 static void drive_brake() {
   LF.brake(); LM.brake(); LB.brake();

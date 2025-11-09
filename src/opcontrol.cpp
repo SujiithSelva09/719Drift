@@ -1,5 +1,12 @@
 #include "main.h"
 
+extern pros::Motor LF;
+extern pros::Motor LM;
+extern pros::Motor LB;
+extern pros::Motor RF;
+extern pros::Motor RM;
+extern pros::Motor RB;
+
 
 /**
 * Operator control (driver control) section.
@@ -19,9 +26,9 @@ void opcontrol() {
        pros::delay(20);
     }
 
+    pros::MotorGroup left_mg({LF, LM, LB});
+    pros::MotorGroup right_mg({RF, RM, RB});
 
-   pros::MotorGroup left_mg({1, -2, -3});
-   pros::MotorGroup right_mg({-4, 5, 6});
    left_mg.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
    right_mg.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
    // Groups motors on the left and right sides so each group acts like one motor.
