@@ -2,7 +2,6 @@
  * Autonomous code section.
  * Runs automatically when the robot is in autonomous mode during a match.
  */
-//Hello
 
  #include "main.h"
  #include "pros/motors.hpp"
