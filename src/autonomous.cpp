@@ -20,8 +20,8 @@
  extern pros::Motor back;
  
 // Tunables
-static constexpr int DRIVE_POWER = 100;     // 0..127
-static constexpr int DRIVE_TIME_MS = 1200;  // how long to drive
+static constexpr int DRIVE_POWER = 20;     // 0..127
+static constexpr int DRIVE_TIME_MS = 5700;  // how long to drive
 static constexpr int INTAKE_BTM = -100;
 static constexpr int INTAKE_TOP = 0;
 static constexpr int INTAKE_REAR = -127;
@@ -29,13 +29,15 @@ static constexpr int INTAKE_REAR = -127;
 
 // Drive helper that matches opcontrol MotorGroup signs
 static void drive_move_forward(int power) {
-  LF.move(power);
-  LM.move(power);
-  LB.move(power);
-  RF.move(power);
-  RM.move(power);
-  RB.move(power);
-}
+    // match opcontrol groups: left {1, -2, -3}, right {-4, 5, 6}
+    LF.move( power);   // 1
+    LM.move(-power);   // -2
+    LB.move(-power);   // -3
+  
+    RF.move(-power);   // -4
+    RM.move( power);   // 5
+    RB.move( power);   // 6
+  }
 
 
 static void drive_brake() {
@@ -51,6 +53,13 @@ static void intake_move(int bottom, int top, int rear) {
 }
  
  void autonomous() {
+    LF.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    LM.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    LB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    RF.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    RM.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    RB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+
     // start intake and drive at the same time
     intake_move(INTAKE_BTM, INTAKE_TOP, INTAKE_REAR);
     drive_move_forward(DRIVE_POWER);
