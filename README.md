@@ -92,11 +92,6 @@ These parameters are adjustable in `autonomous()` inside `main.cpp`.
 **Language:** C++ with PROS  
 **Robot Type:** Competition Standard – Tank Drivetrain, IMU, Intake Mechanism
 
-**Primary Contributors**
-- Rakshith Jayakarthikeyan – Lead Programmer
-- Eshwar Atmakuri - Assistant Programmer
-- Vishwaksen Paramkusham - Float Programmer
-- Team Members:
   -   Eshwar Atmakuri
   -   Harshita Chauhan
   -   Prasenjit Panigrahi
